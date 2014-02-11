@@ -27,11 +27,29 @@ for provincia in provincias:
 	temp_max = pronostico_prov['main']['temp_max']
 	temp_max = round (temp_max - 273,1)
 	viento = pronostico_prov['wind']['speed']
+	direccion = pronostico_prov['wind']['deg']
+	direccion = int(direccion)
+	if direccion == 0:
+		direccion = 'N'
+	if direccion in (1-90):
+		direccion = 'NE'
+	if direccion == 90:
+		direccion = 'E'
+	if direccion in (91-180):
+		direccion = 'SE'
+	if direccion == 180:
+		direccion = 'S'
+	if direccion in (181-270)
+		direccion = 'SO'
+	if direccion = 270:
+		direccion == 'O'
+	if direccion in (271-360)
+		direccion = 'NO'
 	html.write('''<ul>
 		<li>Temperatura mínima prevista: %s ºC.</li>
 		<li>Temperatura máxima prevista: %s ºC.</li>
-		<li>Viento: %s Km/h.</li>
-		</ul>''' % (temp_min,temp_max,viento))
+		<li>Viento: %s Km/h. Dirección: %s</li>
+		</ul>''' % (temp_min,temp_max,viento,direccion))
 
 html.write("</body>")
 html.write("</html>")
