@@ -12,4 +12,7 @@ prov_peticion = (int(raw_input("Teclea el número de la provincia que desea cono
 os.system("clear")
 print "El tiempo para",provincias[prov_peticion][3:],"es el siguiente:"
 pronostico = requests.get(url='http://api.openweathermap.org/data/2.5/weather', params={'q':'%s,spain' % provincias[prov_peticion][3:]})
-print pronostico.text
+pronostico_prov = json.loads(pronostico.text)
+temperatura = pronostico_prov['main']['temp']
+temperatura = round (temperatura - 273,1)
+print "La temperatura en",provincias[prov_peticion][3:],"es de",temperatura,"ºC."
