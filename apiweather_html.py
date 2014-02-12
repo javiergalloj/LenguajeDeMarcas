@@ -16,7 +16,8 @@ html.write("""<!DOCTYPE html PUBLIC '-// W3C // DTD XHTML 1.0 Strict //EN' 'http
 <title>EL TIEMPO</title>
 </head>
 <body>
-<h1>EL TIEMPO EN ANDALUCIA<h1>""")
+<h1>EL TIEMPO EN ANDALUCIA<h1>
+""")
 
 for provincia in provincias:
 	html.write("<h2>%s</h2>" % provincia)
