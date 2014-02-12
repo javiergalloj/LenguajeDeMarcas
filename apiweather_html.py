@@ -31,24 +31,24 @@ for provincia in provincias:
 	direccion = int(direccion)
 	if direccion == 0:
 		direccion = 'N'
-	if direccion in (1-90):
+	if direccion > 0 and direccion < 90:
 		direccion = 'NE'
 	if direccion == 90:
 		direccion = 'E'
-	if direccion in (91-180):
+	if direccion > 90 and direccion < 180:
 		direccion = 'SE'
 	if direccion == 180:
 		direccion = 'S'
-	if direccion in (181-270)
+	if direccion > 180 and direccion < 270:
 		direccion = 'SO'
-	if direccion = 270:
-		direccion == 'O'
-	if direccion in (271-360)
+	if direccion == 270:
+		direccion = 'O'
+	if direccion > 270 and direccion < 360:
 		direccion = 'NO'
 	html.write('''<ul>
 		<li>Temperatura mínima prevista: %s ºC.</li>
 		<li>Temperatura máxima prevista: %s ºC.</li>
-		<li>Viento: %s Km/h. Dirección: %s</li>
+		<li>Viento: %s Km/h. Dirección: %s.</li>
 		</ul>''' % (temp_min,temp_max,viento,direccion))
 
 html.write("</body>")
