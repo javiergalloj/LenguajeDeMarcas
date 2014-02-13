@@ -3,8 +3,9 @@ import os
 import json
 import requests
 import webbrowser
+import jinja2
 
-def function orientacion (direccion):
+def orientacion (direccion):
 	if direccion == 0:
 		return 'N'
 	if direccion > 0 and direccion < 90:
@@ -22,10 +23,10 @@ def function orientacion (direccion):
 	if direccion > 270 and direccion < 360:
 		return 'NO'
 
+
 provincias = ['Almería','Cádiz', 'Córdoba','Granada','Huelva','Jaen','Málaga','Sevilla']
 
 for provincia in provincias:
-	html.write("<h2>%s</h2>" % provincia)
 	pronostico = requests.get(url='http://api.openweathermap.org/data/2.5/weather', params={'q':'%s,spain' % provincia})
 	pronostico_prov = json.loads(pronostico.text)
 	temp_min = pronostico_prov['main']['temp_min']
@@ -33,8 +34,12 @@ for provincia in provincias:
 	temp_max = pronostico_prov['main']['temp_max']
 	temp_max = round (temp_max - 273,1)
 	viento = pronostico_prov['wind']['speed']
-	direccion = pronostico_prov['wind']['deg']
-	direccion = int(direccion)
+	viento = round (viento*1.609,0)
+	direccion = int(pronostico_prov['wind']['deg'])
 	direccion = orientacion(direccion)
+	print temp_min
+	print temp_max
+	print viento
+	print direccion
 
 webbrowser.open("tiempo.html")
