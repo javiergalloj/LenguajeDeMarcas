@@ -3,24 +3,24 @@ import os
 import json
 import requests
 import webbrowser
-import jinja2
+from jinja2 import Template
 
 def orientacion (direccion):
-	if direccion == 0:
+	if (direccion > 337.5 and direccion <= 360) or (direccion >= 0 and direccion < 22.5):
 		return 'N'
-	if direccion > 0 and direccion < 90:
+	if direccion >= 22.5 and direccion <= 67.5:
 		return 'NE'
-	if direccion == 90:
+	if direccion > 67.5 and direccion < 112.5:
 		return 'E'
-	if direccion > 90 and direccion < 180:
+	if direccion >= 112.5 and direccion <= 157.5:
 		return 'SE'
-	if direccion == 180:
+	if direccion > 157.5 and direccion < 202.5:
 		return 'S'
-	if direccion > 180 and direccion < 270:
+	if direccion >= 202.5 and direccion <= 247.5:
 		return 'SO'
-	if direccion == 270:
+	if direccion > 247.5 and direccion < 292.5:
 		return 'O'
-	if direccion > 270 and direccion < 360:
+	if direccion >= 292.5 and direccion <= 337.5:
 		return 'NO'
 
 
@@ -35,11 +35,7 @@ for provincia in provincias:
 	temp_max = round (temp_max - 273,1)
 	viento = pronostico_prov['wind']['speed']
 	viento = round (viento*1.609,0)
-	direccion = int(pronostico_prov['wind']['deg'])
+	direccion = pronostico_prov['wind']['deg']
 	direccion = orientacion(direccion)
-	print temp_min
-	print temp_max
-	print viento
-	print direccion
 
 webbrowser.open("tiempo.html")
