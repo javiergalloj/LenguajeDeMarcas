@@ -24,7 +24,13 @@ def orientacion (direccion):
 		return 'NO'
 
 
-provincias = ['Almería','Cádiz', 'Córdoba','Granada','Huelva','Jaen','Málaga','Sevilla']
+provincias = ['Almeria','Cadiz', 'Cordoba','Granada','Huelva','Jaen','Malaga','Sevilla']
+plantilla = open('plantilla.html','r')
+salidahtml = open('salidahtml.html','w')
+html = ''
+
+for linea in plantilla:
+	html += linea
 
 for provincia in provincias:
 	pronostico = requests.get(url='http://api.openweathermap.org/data/2.5/weather', params={'q':'%s,spain' % provincia})
@@ -37,5 +43,9 @@ for provincia in provincias:
 	viento = round (viento*1.609,0)
 	direccion = pronostico_prov['wind']['deg']
 	direccion = orientacion(direccion)
+	salida = Template(html)
+	salida = salida.render(provincia = provincia, temp_min = temp_min, temp_max = temp_max, viento = viento, direccion = direccion)
+	salidahtml.write(salida)
 
-webbrowser.open("tiempo.html")
+
+webbrowser.open("salidahtml.html")
