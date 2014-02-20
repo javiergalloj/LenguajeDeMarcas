@@ -8,13 +8,12 @@
 	</head>
 	<body>
 		<h1>EL TIEMPO EN ANDALUCIA</h1>
-		{% for user in users %}
-		<h2>{{ capital }}</h2>
+		{% for provincia in provincias %}
+		<h2>{{ provincia }}</h2>
 		<ul>
-			<li>{{ user.username }}</a></li>
-			<li>Temperatura mínima prevista:  {{ temp_min }}ºC.</li>
-			<li>Temperatura máxima prevista: {{ temp_max }} ºC.</li>
-			<li>Viento: {{ viento }} Km/h. Dirección: {{ direccion }}.</li>
+			<li>Temperatura minima prevista:  {{ temp_min }} grados.</li>
+			<li>Temperatura maxima prevista: {{ temp_max }} grados.</li>
+			<li>Viento: {{ viento }} Km/h. Direccion: {{ direccion }}.</li>
 		</ul>
 		{% endfor %}
 	</body>
