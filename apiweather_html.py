@@ -28,6 +28,10 @@ provincias = ['Almeria','Cadiz', 'Cordoba','Granada','Huelva','Jaen','Malaga','S
 plantilla = open('plantilla.html','r')
 salidahtml = open('salidahtml.html','w')
 html = ''
+ltemp_min = []
+ltemp_max = []
+lviento = []
+ldireccion = []
 
 for linea in plantilla:
 	html += linea
@@ -36,16 +40,21 @@ for provincia in provincias:
 	pronostico = requests.get(url='http://api.openweathermap.org/data/2.5/weather', params={'q':'%s,spain' % provincia})
 	pronostico_prov = json.loads(pronostico.text)
 	temp_min = pronostico_prov['main']['temp_min']
-	temp_min = round (temp_min - 273,1)
+	temp_min = int (temp_min - 273)
+	ltemp_min.append(temp_min)
 	temp_max = pronostico_prov['main']['temp_max']
-	temp_max = round (temp_max - 273,1)
+	temp_max = int (temp_max - 273)
+	ltemp_max.append(temp_max)
 	viento = pronostico_prov['wind']['speed']
-	viento = round (viento*1.609,0)
+	viento = int (viento*1.609)
+	lviento.append(viento)
 	direccion = pronostico_prov['wind']['deg']
 	direccion = orientacion(direccion)
-	salida = Template(html)
-	salida = salida.render(provincia = provincia, temp_min = temp_min, temp_max = temp_max, viento = viento, direccion = direccion)
-	salidahtml.write(salida)
+	ldireccion.append(direccion)
 
+
+salida = Template(html)
+salida = salida.render(provincias = provincias, temp_min = ltemp_min, temp_max = ltemp_max, viento = lviento, direccion = ldireccion)
+salidahtml.write(salida)
 
 webbrowser.open("salidahtml.html")
